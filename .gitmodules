@@ -1,0 +1,6 @@
+[submodule "tbb"]
+	path = tbb
+	url = https://github.com/wjakob/tbb.git
+[submodule "libigl"]
+	path = libigl
+	url = https://github.com/libigl/libigl.git

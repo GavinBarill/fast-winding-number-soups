@@ -1,0 +1,6 @@
+*.un~
+*.swp
+*.swo
+.DS_Store
+pig-head-W.dmat
+build/*
