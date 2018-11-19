@@ -28,6 +28,6 @@ _Note: this implementation is for triangle soups only, not point clouds._
     ./fastwinding ../pig-head.ply ../pig-head-Q.dmat ../pig-head-W.dmat
 
 This should create a [.dmat](http://libigl.github.io/libigl/file-formats/dmat/)
-file `../hot:og-W.dmat' containing the generalized winding number for each query
+file `../pig-head-W.dmat' containing the generalized winding number for each query
 point in `../pig-head-Q.dmat`.
 
