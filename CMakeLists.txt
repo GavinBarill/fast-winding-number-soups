@@ -25,8 +25,9 @@ option(LIBIGL_WITH_XML               "Use XML"            OFF)
 
 find_package(LIBIGL REQUIRED QUIET)
 # Add your project files
-file(GLOB SRCFILES *.cpp)
-add_executable(${PROJECT_NAME} ${SRCFILES})
+file(GLOB SRCFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB WNFILES ${CMAKE_CURRENT_SOURCE_DIR}/WindingNumber/*.cpp)
+add_executable(${PROJECT_NAME} ${SRCFILES} ${WNFILES})
 
 # Build TBB
 set(TBB_BUILD_STATIC ON CACHE BOOL " " FORCE)

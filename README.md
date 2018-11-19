@@ -13,12 +13,11 @@ _Note: this implementation is for triangle soups only, not point clouds._
 
 ## Get started with 
 
-    git clone --recursive https://github.com/GavinBarill/neil-triangle-example.git
-
+    git clone --recursive https://github.com/GavinBarill/fast-winding-number-soups.git
 
 ## Build the example with
 
-    cd neil-triangle-example
+    cd fast-winding-number-soups
     mkdir build
     cd build
     cmake ../

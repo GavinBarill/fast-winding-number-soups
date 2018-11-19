@@ -4,3 +4,6 @@
 [submodule "WindingNumber"]
 	path = WindingNumber
 	url = https://github.com/sideeffects/WindingNumber/
+[submodule "libigl"]
+	path = libigl
+	url = https://github.com/libigl/libigl/
