@@ -10,10 +10,12 @@
 #include <igl/parallel_for.h>
 #include <igl/readDMAT.h>
 #include <igl/writeDMAT.h>
+#include <igl/get_seconds.h>
 
 #include <Eigen/Core>
 
 #include <cstdlib>
+
 
 int main(int argc, char * argv[])
 {
@@ -48,27 +50,45 @@ output.dmat will contain a #Q by 1 vector of output winding numbers
       U[i][j] = V(i,j);
     }
   }
-  solid_angle.init(
-      F.rows(),
-      F.data(),
-      V.rows(),
-      &U[0],
-      order);
+  {
+    double t_before = igl::get_seconds();
+#define MAX_PRECOMP_RUNS 50
+    for(int r = 0;r<MAX_PRECOMP_RUNS;r++)
+    {
+      solid_angle.clear();
+      solid_angle.init(
+          F.rows(),
+          F.data(),
+          V.rows(),
+          &U[0],
+          order);
+    }
+    std::cout<<"Precomp: "<<(igl::get_seconds() - t_before)/MAX_PRECOMP_RUNS<<" secs"<<std::endl;
+  }
 
   Eigen::VectorXf W(P.rows());
-  igl::parallel_for(P.rows(),[&](int p)
-  //for(int p = 0;p<P.rows();p++)
   {
-  HDK_Sample::UT_Vector3T<float>Pp;
-      Pp[0] = P(p,0);
-      Pp[1] = P(p,1);
-      Pp[2] = P(p,2);
-    W(p) = solid_angle.computeSolidAngle(
-      Pp,
-      accuracy_scale) 
-      / (4.0*M_PI);
+    double t_before = igl::get_seconds();
+#define MAX_RUNS 5
+    for(int r = 0;r<MAX_RUNS;r++)
+    {
+      // Alec: Yes, this parallel_for is helping on pig-head-subd
+      igl::parallel_for(P.rows(),[&](int p)
+      //for(int p = 0;p<P.rows();p++)
+      {
+      HDK_Sample::UT_Vector3T<float>Pp;
+          Pp[0] = P(p,0);
+          Pp[1] = P(p,1);
+          Pp[2] = P(p,2);
+        W(p) = solid_angle.computeSolidAngle(
+          Pp,
+          accuracy_scale) 
+          / (4.0*M_PI);
+      }
+      ,1000);
+    }
+    std::cout<<"Runtime: "<<(igl::get_seconds() - t_before)/MAX_RUNS<<" secs"<<std::endl;
   }
-  ,1000);
 
   return
     igl::writeDMAT(argv[3],W,false);
