@@ -1,9 +1,9 @@
 [submodule "tbb"]
 	path = tbb
 	url = https://github.com/wjakob/tbb.git
-[submodule "WindingNumber"]
-	path = WindingNumber
-	url = https://github.com/sideeffects/WindingNumber/
 [submodule "libigl"]
 	path = libigl
 	url = https://github.com/libigl/libigl/
+[submodule "WindingNumber"]
+	path = WindingNumber
+	url = https://github.com/alecjacobson/WindingNumber
