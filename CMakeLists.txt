@@ -29,14 +29,5 @@ file(GLOB SRCFILES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 file(GLOB WNFILES ${CMAKE_CURRENT_SOURCE_DIR}/WindingNumber/*.cpp)
 add_executable(${PROJECT_NAME} ${SRCFILES} ${WNFILES})
 
-# Build TBB
-set(TBB_BUILD_STATIC ON CACHE BOOL " " FORCE)
-set(TBB_BUILD_SHARED OFF CACHE BOOL " " FORCE)
-set(TBB_BUILD_TBBMALLOC OFF CACHE BOOL " " FORCE)
-set(TBB_BUILD_TBBMALLOC_PROXY OFF CACHE BOOL " " FORCE)
-set(TBB_BUILD_TESTS OFF CACHE BOOL " " FORCE)
-add_subdirectory(tbb)
-target_include_directories(tbb_static PUBLIC tbb/include)
-
-target_link_libraries(${PROJECT_NAME} igl::core tbb_static)
+target_link_libraries(${PROJECT_NAME} igl::core )
 
